@@ -1,0 +1,115 @@
+:root {
+  --primary-color: #397238;
+  --primary-light: #4e8f4d;
+  --primary-dark: #2d5a2c;
+  --primary-light: #baceba;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  color: #333;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Playfair Display", serif;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+}
+
+.text-primary {
+  color: var(--primary-color);
+}
+
+.bg-primary {
+  background-color: var(--primary-color);
+}
+
+.bg-primary-light {
+  background-color: var(--primary-light);
+}
+
+.border-primary {
+  border-color: var(--primary-color);
+}
+
+.hero-bg {
+  background: linear-gradient(
+    rgba(255, 255, 255, 0.9),
+    rgba(255, 255, 255, 0.9)
+  );
+  background-size: cover;
+  background-position: center;
+}
+
+.product-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.25rem rgba(57, 114, 56, 0.25);
+}
+
+.scroll-smooth {
+  scroll-behavior: smooth;
+}
+
+.countdown {
+  font-variant-numeric: tabular-nums;
+}
+
+.ingredient-card {
+  transition: all 0.3s ease;
+}
+
+.ingredient-card:hover {
+  transform: translateY(-5px);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: 15px;
+  top: 0;
+  height: 100%;
+  width: 2px;
+  background-color: var(--primary-color);
+}
+
+.timeline-dot {
+  position: absolute;
+  left: 9px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  border: 3px solid white;
+  box-shadow: 0 0 0 3px rgba(57, 114, 56, 0.2);
+}
+/* Indicator Styles */
+.indicator.active {
+  background-color: var(--primary-color) !important;
+}
