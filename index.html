@@ -120,23 +120,26 @@
     </script>
         <style>
       html,
-body {
-  width: 100%;
-  max-width: 100%;
-  margin: 0;
-  background: #f8f8f8;
-  padding: 0;
-}
-.mobile-only {
-  width: 100vw;
-  max-width: 100vw;
-}
-@media (min-width: 475px) {
-  html,
-  body {
-    max-width: 100% !important;
-  }
-}
+      body {
+        max-width: 475px;
+        margin: 0 auto;
+        background: #f8f8f8;
+        padding: 0 0;
+      }
+      
+      * {
+        box-sizing: border-box;
+      }
+      .mobile-only {
+        width: 100vw;
+        max-width: 475px;
+      }
+      @media (min-width: 475px) {
+        html,
+        body {
+          max-width: 475px !important;
+        }
+      }
 
       body {
         font-family: "Inter", Arial, sans-serif;
