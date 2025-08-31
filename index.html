@@ -120,27 +120,26 @@
     </script>
         <style>
       html,
-      body {
-        max-width: 475px;
-        margin: 0 auto;
-        background: #f8f8f8;
-        padding: 0 0;
-      }
+body {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  background: #f8f8f8;
+  padding: 0;
+}
+.mobile-only {
+  width: 100vw;
+  max-width: 100vw;
+}
+@media (min-width: 475px) {
+  html,
+  body {
+    max-width: 100% !important;
+  }
+}
+
       body {
         font-family: "Inter", Arial, sans-serif;
-      }
-      * {
-        box-sizing: border-box;
-      }
-      .mobile-only {
-        width: 100vw;
-        max-width: 475px;
-      }
-      @media (min-width: 475px) {
-        html,
-        body {
-          max-width: 475px !important;
-        }
       }
       input,
       textarea,
@@ -1023,9 +1022,6 @@
   }
   // 15 phút = 900 giây
   startCountdown(900);
-      // Always mobile layout
-      document.documentElement.style.maxWidth = "375px";
-      document.body.style.maxWidth = "375px";
 
       // Back to top
       const btnTop = document.getElementById("backToTop");
