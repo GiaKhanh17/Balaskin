@@ -1034,7 +1034,7 @@ document.getElementById("leadForm").onsubmit = async function (e) {
   msg.textContent = "Đang gửi...";
 
   // Gửi về Google Sheet qua Apps Script Web App
-  fetch("YOUR_GOOGLE_APPS_SCRIPT_URL", {
+  fetch("https://script.google.com/macros/s/AKfycbxW6c-qoYMjWYRPPkIhThFxERMVCpkFwITO-E9W2mwBQmUjft4wzTQbQn7Ify9kvkzU/exec", {
     method: "POST",
     body: new FormData(form),
   })
@@ -1050,7 +1050,7 @@ document.getElementById("leadForm").onsubmit = async function (e) {
     });
 
   // Gửi về email qua Formspree (tùy chọn)
-  fetch("https://formspree.io/f/YOUR_FORM_ID", {
+  fetch("https://formspree.io/f/xqaddpjj", {
     method: "POST",
     body: new FormData(form),
     headers: { Accept: "application/json" },
