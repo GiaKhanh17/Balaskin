@@ -817,16 +817,16 @@
                     Khách hàng nói gì?
                 </h2>
                 <div>
-                    <img src="/img/feeback/feedback1.jpg" alt="">
+                    <img src="/img/feeback/feedback1.jpg" alt>
                 </div>
                 <div>
-                    <img src="/img/feeback/feedback2.jpg" alt="">
+                    <img src="/img/feeback/feedback2.jpg" alt>
                 </div>
                 <div>
-                    <img src="/img/feeback/feedback3.jpg" alt="">
+                    <img src="/img/feeback/feedback3.jpg" alt>
                 </div>
                 <div>
-                    <img src="/img/feeback/feedback4.jpg" alt="">
+                    <img src="/img/feeback/feedback4.jpg" alt>
                 </div>
             </section>
 
@@ -1033,23 +1033,30 @@ document.getElementById("leadForm").onsubmit = async function (e) {
   const msg = document.getElementById("formMsg");
   msg.textContent = "Đang gửi...";
 
-  // Gửi về Google Sheet qua Apps Script Web App
-  fetch("https://script.google.com/macros/s/AKfycbxW6c-qoYMjWYRPPkIhThFxERMVCpkFwITO-E9W2mwBQmUjft4wzTQbQn7Ify9kvkzU/exec", {
+  // Lấy dữ liệu form
+  const data = {
+    name: form.name.value,
+    phone: form.phone.value,
+    address: form.address.value,
+    product: form.product.value
+  };
+
+  // Gửi về Google Sheet qua SheetDB
+  fetch("https://sheetdb.io/api/v1/vpr2yq67c9qwm", { // Thay xxxxxx bằng API ID của bạn
     method: "POST",
-    body: new FormData(form),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ data: data })
   })
-    .then((res) => (res.ok ? res.text() : Promise.reject()))
+    .then((res) => res.ok ? res.json() : Promise.reject())
     .then(() => {
-      msg.textContent =
-        "Gửi thành công! Chúng tôi sẽ liên hệ tư vấn sớm nhất.";
+      msg.textContent = "Gửi thành công! Chúng tôi sẽ liên hệ tư vấn sớm nhất.";
       form.reset();
     })
     .catch(() => {
-      msg.textContent =
-        "Có lỗi xảy ra, vui lòng thử lại hoặc liên hệ hotline.";
+      msg.textContent = "Có lỗi xảy ra, vui lòng thử lại hoặc liên hệ hotline.";
     });
 
-  // Gửi về email qua Formspree (tùy chọn)
+  // Gửi về email qua Formspree (nếu muốn)
   fetch("https://formspree.io/f/xqaddpjj", {
     method: "POST",
     body: new FormData(form),
