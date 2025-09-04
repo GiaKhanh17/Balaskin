@@ -75,23 +75,16 @@ function initVideoAutoPlay() {
     });
 
     // Function để play video với fallback strategy
+    // Function để play video với fallback strategy
     function playVideo(iframe) {
         try {
-            // Strategy 1: Thử play với unmute nếu user đã tương tác
-            if (userHasInteracted) {
-                iframe.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
-                setTimeout(() => {
-                    iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-                }, 100);
-            } else {
-                // Strategy 2: Play muted trước, sẽ unmute sau khi user tương tác
-                iframe.contentWindow.postMessage('{"event":"command","func":"mute","args":""}', '*');
-                setTimeout(() => {
-                    iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-                }, 100);
-            }
+            // Luôn bật tiếng khi video autoplay
+            iframe.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+            setTimeout(() => {
+                iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+            }, 100);
 
-            console.log('Attempting to play video');
+            console.log('Attempting to play video with sound');
         } catch (error) {
             console.log('Không thể play video:', error);
 
@@ -99,6 +92,7 @@ function initVideoAutoPlay() {
             fallbackPlay(iframe);
         }
     }
+
 
     // Function để pause video
     function pauseVideo(iframe) {
