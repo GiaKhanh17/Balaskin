@@ -1,359 +1,399 @@
-// Mobile Menu Toggle
-const mobileMenuBtn = document.getElementById("mobile-menu-btn");
-const mobileMenu = document.getElementById("mobile-menu");
 
-mobileMenuBtn.addEventListener("click", () => {
-    mobileMenu.classList.toggle("hidden");
-});
+// Script để auto play video khi scroll và pause khi scroll ra khỏi viewport
+function initVideoAutoPlay() {
+    let userHasInteracted = false;
 
-// Close mobile menu when clicking on a link
-const mobileLinks = mobileMenu.querySelectorAll("a");
-mobileLinks.forEach((link) => {
-    link.addEventListener("click", () => {
-        mobileMenu.classList.add("hidden");
-    });
-});
-
-// Back to Top Button
-const backToTopBtn = document.getElementById("backToTop");
-
-window.addEventListener("scroll", () => {
-    if (window.pageYOffset > 300) {
-        backToTopBtn.classList.remove("opacity-0", "invisible");
-        backToTopBtn.classList.add("opacity-100", "visible");
-    } else {
-        backToTopBtn.classList.add("opacity-0", "invisible");
-        backToTopBtn.classList.remove("opacity-100", "visible");
-    }
-});
-
-backToTopBtn.addEventListener("click", () => {
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-    });
-});
-
-// Product Tabs
-const tabBtns = document.querySelectorAll(".tab-btn");
-const tabContents = document.querySelectorAll(".tab-content");
-
-tabBtns.forEach((btn) => {
-    btn.addEventListener("click", () => {
-        const tabId = btn.getAttribute("data-tab");
-
-        // Update active tab button
-        tabBtns.forEach((b) => {
-            b.classList.remove("bg-primary", "text-white");
-            b.classList.add("text-gray-600");
-        });
-        btn.classList.add("bg-primary", "text-white");
-        btn.classList.remove("text-gray-600");
-
-        // Update active tab content
-        tabContents.forEach((content) => {
-            content.classList.remove("active");
-        });
-        document.getElementById(tabId).classList.add("active");
-    });
-});
-
-// FAQ Accordion
-const faqQuestions = document.querySelectorAll(".faq-question");
-
-faqQuestions.forEach((question) => {
-    question.addEventListener("click", () => {
-        const answer = question.nextElementSibling;
-        const icon = question.querySelector("i");
-
-        // Toggle answer visibility
-        answer.classList.toggle("hidden");
-
-        // Toggle icon
-        if (answer.classList.contains("hidden")) {
-            icon.classList.remove("fa-minus");
-            icon.classList.add("fa-plus");
-        } else {
-            icon.classList.remove("fa-plus");
-            icon.classList.add("fa-minus");
-        }
-    });
-});
-
-// Form Submission
-const orderForm = document.getElementById("orderForm");
-const formMessage = document.getElementById("formMessage");
-
-orderForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    // Get form data
-    const formData = new FormData(orderForm);
-    const name = formData.get("name");
-    const phone = formData.get("phone");
-    const email = formData.get("email");
-    const address = formData.get("address");
-    const product = formData.get("product");
-    const quantity = formData.get("quantity");
-    const message = formData.get("message");
-
-    // Calculate total
-    let total = 0;
-    if (cart.length > 0) {
-        cart.forEach((item) => {
-            total += item.price * item.quantity;
-        });
+    // Theo dõi user interaction để enable autoplay
+    function enableAutoplay() {
+        userHasInteracted = true;
+        document.removeEventListener('click', enableAutoplay);
+        document.removeEventListener('touchstart', enableAutoplay);
+        document.removeEventListener('keydown', enableAutoplay);
     }
 
-    // Send data to Google Sheet
-    fetch("https://script.google.com/macros/s/YOUR_GOOGLE_SCRIPT_ID/exec", {
-        method: "POST",
-        body: formData,
-    })
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.result === "success") {
-                // Show success message
-                formMessage.textContent =
-                    "Cảm ơn bạn đã đặt hàng! Chúng tôi sẽ liên hệ với bạn sớm nhất.";
-                formMessage.classList.add("bg-green-100", "text-green-700");
-                formMessage.classList.remove("bg-red-100", "text-red-700");
-                formMessage.classList.remove("hidden");
+    // Lắng nghe các sự kiện user interaction
+    document.addEventListener('click', enableAutoplay);
+    document.addEventListener('touchstart', enableAutoplay);
+    document.addEventListener('keydown', enableAutoplay);
 
-                // Reset form and cart
-                orderForm.reset();
-                cart = [];
-                updateCart();
+    // Lấy tất cả iframe video
+    const videoIframes = document.querySelectorAll('iframe[src*="youtube.com"]');
 
-                // Track Facebook conversion
-                fbq("track", "Purchase", {
-                    value: total,
-                    currency: "VND",
-                    content_name: product,
-                });
+    // Intersection Observer để theo dõi khi video vào/ra khỏi viewport
+    const observerOptions = {
+        root: null,
+        rootMargin: '-100px 0px -100px 0px', // Chỉ trigger khi video thực sự visible
+        threshold: 0.3 // Video sẽ play khi 30% xuất hiện trên màn hình
+    };
 
-                // Track TikTok conversion
-                ttq.track("PlaceAnOrder", {
-                    content_type: "product",
-                    content_name: product,
-                    value: total,
-                    currency: "VND",
-                });
+    const videoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const iframe = entry.target;
+
+            if (entry.isIntersecting) {
+                // Video vào viewport
+                setTimeout(() => {
+                    playVideo(iframe);
+                }, 500); // Delay 500ms để đảm bảo iframe đã sẵn sàng
             } else {
-                // Show error message
-                formMessage.textContent = "Đã xảy ra lỗi. Vui lòng thử lại sau.";
-                formMessage.classList.add("bg-red-100", "text-red-700");
-                formMessage.classList.remove("bg-green-100", "text-green-700");
-                formMessage.classList.remove("hidden");
+                // Video ra khỏi viewport - pause
+                pauseVideo(iframe);
             }
-        })
-        .catch((error) => {
-            console.error("Error:", error);
-            // Show error message
-            formMessage.textContent = "Đã xảy ra lỗi. Vui lòng thử lại sau.";
-            formMessage.classList.add("bg-red-100", "text-red-700");
-            formMessage.classList.remove("bg-green-100", "text-green-700");
-            formMessage.classList.remove("hidden");
         });
+    }, observerOptions);
 
-    // Send data to email (using Formspree as an example)
-    fetch("https://formspree.io/f/your-formspree-id", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            name: name,
-            phone: phone,
-            email: email,
-            address: address,
-            product: product,
-            quantity: quantity,
-            message: message,
-            total: total,
-        }),
-    });
-});
+    // Setup và observe tất cả video iframes
+    videoIframes.forEach((iframe, index) => {
+        // Cập nhật URL với các parameter cần thiết
+        let src = iframe.src;
+        const hasQuery = src.includes('?');
+        const params = [
+            'enablejsapi=1',
+            'autoplay=1',
+            'mute=1', // Bắt đầu với mute để bypass autoplay policy
+            'controls=1',
+            'rel=0'
+        ];
 
-// Smooth scrolling for anchor links
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", function (e) {
-        e.preventDefault();
-
-        const target = document.querySelector(this.getAttribute("href"));
-        if (target) {
-            window.scrollTo({
-                top: target.offsetTop - 80,
-                behavior: "smooth",
+        if (!hasQuery) {
+            iframe.src = src + '?' + params.join('&');
+        } else {
+            // Kiểm tra và thêm các parameter chưa có
+            params.forEach(param => {
+                const [key] = param.split('=');
+                if (!src.includes(key + '=')) {
+                    iframe.src += '&' + param;
+                }
             });
         }
+
+        // Thêm thuộc tính để identify
+        iframe.setAttribute('data-video-index', index);
+
+        // Observe iframe
+        videoObserver.observe(iframe);
     });
-});
 
-// Countdown Timer
-function updateCountdown() {
-    // Set the date we're counting down to (7 days from now)
-    const countDownDate = new Date();
-    countDownDate.setDate(countDownDate.getDate() + 7);
+    // Function để play video với fallback strategy
+    function playVideo(iframe) {
+        try {
+            // Strategy 1: Thử play với unmute nếu user đã tương tác
+            if (userHasInteracted) {
+                iframe.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+                setTimeout(() => {
+                    iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                }, 100);
+            } else {
+                // Strategy 2: Play muted trước, sẽ unmute sau khi user tương tác
+                iframe.contentWindow.postMessage('{"event":"command","func":"mute","args":""}', '*');
+                setTimeout(() => {
+                    iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                }, 100);
+            }
 
-    // Update the count down every 1 second
-    const x = setInterval(function () {
-        // Get today's date and time
-        const now = new Date().getTime();
+            console.log('Attempting to play video');
+        } catch (error) {
+            console.log('Không thể play video:', error);
 
-        // Find the distance between now and the count down date
-        const distance = countDownDate - now;
+            // Fallback: Tạo click event giả lập
+            fallbackPlay(iframe);
+        }
+    }
 
-        // Time calculations for days, hours, minutes and seconds
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor(
-            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-        );
-        const minutes = Math.floor(
-            (distance % (1000 * 60 * 60)) / (1000 * 60)
-        );
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    // Function để pause video
+    function pauseVideo(iframe) {
+        try {
+            iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+        } catch (error) {
+            console.log('Không thể pause video:', error);
+        }
+    }
 
-        // Display the result
-        document.getElementById("days").innerText = days
+    // Fallback method khi postMessage không hoạt động
+    function fallbackPlay(iframe) {
+        // Tạo overlay button để simulate user click
+        const overlay = createPlayOverlay(iframe);
+        if (overlay) {
+            setTimeout(() => {
+                overlay.click();
+            }, 200);
+        }
+    }
+
+    // Tạo invisible overlay để trigger autoplay
+    function createPlayOverlay(iframe) {
+        const existingOverlay = iframe.parentNode.querySelector('.video-overlay');
+        if (existingOverlay) return existingOverlay;
+
+        const overlay = document.createElement('div');
+        overlay.className = 'video-overlay';
+        overlay.style.cssText = `
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      z-index: 10;
+      cursor: pointer;
+      pointer-events: auto;
+    `;
+
+        overlay.onclick = function () {
+            iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+            if (userHasInteracted) {
+                iframe.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+            }
+            overlay.style.display = 'none';
+        };
+
+        // Đảm bảo parent có position relative
+        if (iframe.parentNode.style.position !== 'relative') {
+            iframe.parentNode.style.position = 'relative';
+        }
+
+        iframe.parentNode.appendChild(overlay);
+        return overlay;
+    }
+
+    // Listen for user interaction để unmute videos đang play
+    document.addEventListener('click', function () {
+        if (userHasInteracted) {
+            videoIframes.forEach(iframe => {
+                try {
+                    iframe.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+                } catch (error) {
+                    // Silent fail
+                }
+            });
+        }
+    }, { once: true });
+}
+
+// Khởi chạy khi DOM đã load xong
+document.addEventListener('DOMContentLoaded', initVideoAutoPlay);
+
+// Backup: Khởi chạy lại sau 2 giây để đảm bảo iframe đã load
+setTimeout(initVideoAutoPlay, 2000);
+
+
+
+// filepath: d:\Code_HTML\Freelancer\Balaskin\index2.html
+// Countdown 15 phút, reset về 0 khi hết
+function startCountdown(duration) {
+    let timer = duration,
+        days,
+        hours,
+        minutes,
+        seconds;
+    setInterval(function () {
+        days = Math.floor(timer / (60 * 60 * 24));
+        hours = Math.floor((timer % (60 * 60 * 24)) / 3600);
+        minutes = Math.floor((timer % 3600) / 60);
+        seconds = timer % 60;
+
+        document.getElementById("cd-day").textContent = days
             .toString()
             .padStart(2, "0");
-        document.getElementById("hours").innerText = hours
+        document.getElementById("cd-hour").textContent = hours
             .toString()
             .padStart(2, "0");
-        document.getElementById("minutes").innerText = minutes
+        document.getElementById("cd-min").textContent = minutes
             .toString()
             .padStart(2, "0");
-        document.getElementById("seconds").innerText = seconds
+        document.getElementById("cd-sec").textContent = seconds
             .toString()
             .padStart(2, "0");
 
-        // If the count down is finished, write some text
-        if (distance < 0) {
-            clearInterval(x);
-            document.getElementById("days").innerText = "00";
-            document.getElementById("hours").innerText = "00";
-            document.getElementById("minutes").innerText = "00";
-            document.getElementById("seconds").innerText = "00";
+        if (--timer < 0) {
+            timer = 0;
+            document.getElementById("cd-day").textContent = "00";
+            document.getElementById("cd-hour").textContent = "00";
+            document.getElementById("cd-min").textContent = "00";
+            document.getElementById("cd-sec").textContent = "00";
         }
     }, 1000);
 }
+// 15 phút = 900 giây
+startCountdown(900);
 
-updateCountdown();
-
-// Video Play/Pause Functionality
-const video = document.getElementById('koc-video');
-const playOverlay = document.getElementById('play-overlay');
-const replayBtn = document.getElementById('replay-video');
-
-// Play video when clicking on overlay
-playOverlay.addEventListener('click', () => {
-    video.play();
-    playOverlay.style.display = 'none';
+// Back to top
+const btnTop = document.getElementById("backToTop");
+window.addEventListener("scroll", () => {
+    btnTop.style.display = window.scrollY > 200 ? "flex" : "none";
 });
+btnTop.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
-// Show overlay when video is paused
-video.addEventListener('pause', () => {
-    if (video.currentTime > 0 && !video.ended) {
-        playOverlay.style.display = 'flex';
-    }
-});
+// Xử lý submit form: gửi về Google Sheet và email (Formspree)
+document.getElementById("leadForm").onsubmit = async function (e) {
+    e.preventDefault();
+    const form = e.target;
+    const msg = document.getElementById("formMsg");
+    msg.textContent = "Đang gửi...";
 
-// Hide overlay when video is playing
-video.addEventListener('play', () => {
-    playOverlay.style.display = 'none';
-});
+    // Lấy dữ liệu form
+    const data = {
+        name: form.name.value,
+        phone: form.phone.value,
+        address: form.address.value,
+        product: form.product.value,
+    };
 
-// Show overlay when video ends
-video.addEventListener('ended', () => {
-    playOverlay.style.display = 'flex';
-});
-
-// Replay video
-replayBtn.addEventListener('click', () => {
-    video.currentTime = 0;
-    video.play();
-    playOverlay.style.display = 'none';
-
-    // Scroll to video
-    document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
-});
-
-document.addEventListener('DOMContentLoaded', function () {
-    // Carousel functionality
-    const carousel = document.getElementById('results-carousel');
-    const prevBtn = document.getElementById('prev-btn');
-    const nextBtn = document.getElementById('next-btn');
-    const indicators = document.querySelectorAll('.indicator');
-    let currentSlide = 0;
-    const totalSlides = 3;
-
-    // Update carousel position
-    function updateCarousel() {
-        carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
-
-        // Update indicators
-        indicators.forEach((indicator, index) => {
-            if (index === currentSlide) {
-                indicator.classList.add('active');
-                indicator.classList.remove('bg-gray-300');
-            } else {
-                indicator.classList.remove('active');
-                indicator.classList.add('bg-gray-300');
-            }
+    // Gửi về Google Sheet qua SheetDB
+    fetch("https://sheetdb.io/api/v1/fwymewo4i0e83", {
+        // Thay xxxxxx bằng API ID của bạn
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ data: data }),
+    })
+        .then((res) => (res.ok ? res.json() : Promise.reject()))
+        .then(() => {
+            msg.textContent =
+                "Gửi thành công! Chúng tôi sẽ liên hệ tư vấn sớm nhất.";
+            form.reset();
+        })
+        .catch(() => {
+            msg.textContent =
+                "Có lỗi xảy ra, vui lòng thử lại hoặc liên hệ hotline.";
         });
+
+    // Gửi về email qua Formspree (nếu muốn)
+    fetch("https://formspree.io/f/mnnbbvqq", {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" },
+    });
+};
+
+// Danh sách ảnh trước/sau
+const carouselData = [
+    {
+        before: "/img/feeback/ngoc-truoc.jpg",
+        after: "/img/feeback/ngoc-sau.jpg",
+    },
+    {
+        before: "/img/feeback/ni-truoc.jpg",
+        after: "/img/feeback/ni-sau.jpg",
+    },
+    {
+        before: "/img/feeback/vo-truoc.jpg",
+        after: "/img/feeback/vo-sau.jpg",
+    },
+    {
+        before: "/img/feeback/ngoc-truoc.jpg",
+        after: "/img/feeback/ngoc-sau.jpg",
+    },
+    {
+        before: "/img/feeback/ni-truoc.jpg",
+        after: "/img/feeback/ni-sau.jpg",
+    },
+];
+
+let currentIndex = 0;
+let thumbStart = 0;
+const thumbVisible = 4; // Số lượng thumbnail hiển thị cùng lúc
+
+// Render thumbnails
+const thumbsContainer = document.getElementById("carouselThumbs");
+const thumbTemplate = document.getElementById("carouselThumbTemplate");
+
+function renderThumbs() {
+    thumbsContainer.innerHTML = "";
+    for (
+        let i = thumbStart;
+        i < Math.min(thumbStart + thumbVisible, carouselData.length);
+        i++
+    ) {
+        const item = carouselData[i];
+        const node = thumbTemplate.content.cloneNode(true);
+        const imgs = node.querySelectorAll("img");
+        imgs[0].src = item.before;
+        imgs[1].src = item.after;
+        node.firstElementChild.classList.toggle("active", i === currentIndex);
+        node.firstElementChild.onclick = () => setCarousel(i);
+        thumbsContainer.appendChild(node);
     }
+}
 
-    // Next slide
-    nextBtn.addEventListener('click', () => {
-        currentSlide = (currentSlide + 1) % totalSlides;
-        updateCarousel();
-    });
+// Hiển thị ảnh lớn
+function setCarousel(idx) {
+    currentIndex = idx;
+    document.getElementById("mainImgBefore").src = carouselData[idx].before;
+    document.getElementById("mainImgAfter").src = carouselData[idx].after;
+    // Active thumbnail
+    renderThumbs();
+}
 
-    // Previous slide
-    prevBtn.addEventListener('click', () => {
-        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-        updateCarousel();
-    });
-
-    // Indicator click
-    indicators.forEach((indicator, index) => {
-        indicator.addEventListener('click', () => {
-            currentSlide = index;
-            updateCarousel();
-        });
-    });
-
-    // Auto-play carousel
-    setInterval(() => {
-        currentSlide = (currentSlide + 1) % totalSlides;
-        updateCarousel();
-    }, 5000);
-
-    // Touch support for mobile
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    carousel.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-    });
-
-    carousel.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-    });
-
-    function handleSwipe() {
-        if (touchEndX < touchStartX - 50) {
-            // Swipe left
-            currentSlide = (currentSlide + 1) % totalSlides;
-            updateCarousel();
+// Điều hướng main carousel (có vòng lặp)
+document.getElementById("carouselPrev").onclick = function () {
+    if (currentIndex > 0) {
+        setCarousel(currentIndex - 1);
+        if (currentIndex < thumbStart) {
+            thumbStart = currentIndex;
+            renderThumbs();
         }
-
-        if (touchEndX > touchStartX + 50) {
-            // Swipe right
-            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-            updateCarousel();
-        }
+    } else {
+        // Quay về ảnh cuối cùng
+        setCarousel(carouselData.length - 1);
+        thumbStart = Math.max(0, carouselData.length - thumbVisible);
+        renderThumbs();
     }
-});
+};
+document.getElementById("carouselNext").onclick = function () {
+    if (currentIndex < carouselData.length - 1) {
+        setCarousel(currentIndex + 1);
+        if (currentIndex > thumbStart + thumbVisible - 1) {
+            thumbStart = currentIndex - thumbVisible + 1;
+            renderThumbs();
+        }
+    } else {
+        // Quay về ảnh đầu tiên
+        setCarousel(0);
+        thumbStart = 0;
+        renderThumbs();
+    }
+};
+
+// Điều hướng thumbnail carousel (có vòng lặp)
+document.getElementById("thumbPrev").onclick = function () {
+    if (thumbStart > 0) {
+        thumbStart--;
+        renderThumbs();
+    } else {
+        // Quay về cuối
+        thumbStart = Math.max(0, carouselData.length - thumbVisible);
+        renderThumbs();
+    }
+};
+document.getElementById("thumbNext").onclick = function () {
+    if (thumbStart < carouselData.length - thumbVisible) {
+        thumbStart++;
+        renderThumbs();
+    } else {
+        // Quay về đầu
+        thumbStart = 0;
+        renderThumbs();
+    }
+};
+
+// Click thumbnail
+setCarousel(0);
+
+// Phóng to khi click ảnh lớn
+document.getElementById("carouselMain").onclick = function () {
+    document.getElementById("zoomImgBefore").src =
+        carouselData[currentIndex].before;
+    document.getElementById("zoomImgAfter").src =
+        carouselData[currentIndex].after;
+    document.getElementById("zoomModal").classList.remove("hidden");
+};
+document.getElementById("closeZoom").onclick = function () {
+    document.getElementById("zoomModal").classList.add("hidden");
+};
+// Đóng modal khi click nền
+document.getElementById("zoomModal").onclick = function (e) {
+    if (e.target === this) this.classList.add("hidden");
+};
+
+// Khởi tạo thumbnails ban đầu
+renderThumbs();

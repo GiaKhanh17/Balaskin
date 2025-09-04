@@ -5,7 +5,7 @@
         <meta
             name="viewport"
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <title>Gel Trị Mụn Bala Skin - Giải Pháp Chuyên Sâu Cho Da Mụn</title>
+        <title>Serum Giảm Mụn Balaskin</title>
         <meta
             name="description"
             content="Gel trị mụn Bala Skin - Giảm mụn, mờ thâm, an toàn cho da nhạy cảm. Đặt hàng ngay nhận ưu đãi và tư vấn miễn phí!" />
@@ -15,7 +15,7 @@
         <meta name="author" content="Bala Skin" />
         <meta
             property="og:title"
-            content="Gel Trị Mụn Bala Skin - Giải Pháp Chuyên Sâu Cho Da Mụn" />
+            content="Serum Giảm Mụn Balaskin" />
         <meta
             property="og:description"
             content="Gel trị mụn Bala Skin - Giảm mụn, mờ thâm, an toàn cho da nhạy cảm. Đặt hàng ngay nhận ưu đãi và tư vấn miễn phí!" />
@@ -167,6 +167,77 @@
       select {
         outline: none;
       }
+
+   /* Simple Heartbeat Animation - Chỉ co giãn to nhỏ */
+@keyframes simple-heartbeat {
+    0% {
+        transform: scale(1) translate(-45%, -50%);
+    }
+    50% {
+        transform: scale(1.08) translate(-45%, -50%);
+    }
+    100% {
+        transform: scale(1) translate(-45%, -50%);
+    }
+}
+
+.heartbeat-combo-btn {
+    animation: simple-heartbeat 1.5s infinite ease-in-out;
+    transition: all 0.3s ease;
+}
+
+.heartbeat-combo-btn:hover {
+    animation-play-state: paused;
+    transform: scale(1.05) translate(-45%, -50%);
+}
+      
+
+.rating-bar {
+            background: #e5e7eb;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .rating-fill {
+            background: #fbbf24;
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.6s ease-in-out;
+        }
+        
+        .star-yellow {
+            color: #fbbf24;
+        }
+        
+        .star-gray {
+            color: #d1d5db;
+        }
+        
+        .rating-number {
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+        
+        .rating-total {
+            color: #6b7280;
+            font-size: 2rem;
+            font-weight: 300;
+        }
+        
+        .section-bg {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+        
+        @keyframes fillBar {
+            from { width: 0; }
+            to { width: var(--target-width); }
+        }
+        
+        .animated-fill {
+            animation: fillBar 1s ease-out 0.5s forwards;
+        }
     </style>
     </head>
     <body class="mobile-only bg-light text-dark">
@@ -215,10 +286,10 @@
             </section>
 
             <!-- Các loại mụn -->
-            <section class="bg-gradient-to-b from-green-500 to-white py-6 px-4">
-                <div class="flex justify-center">
-                    <img src="/img/logo/LOGO-BALASKIN.png" class="w-32 mx-auto"
-                        alt />
+            <section class="bg-[#306B3E] py-6 px-4">
+                <div class="text-center font-bold text-2xl text-white mb-4"
+                    style="color: white">
+                    Balaskin
                 </div>
                 <div
                     class="text-center text-xl text-white font-bold mb-3 text-base">
@@ -680,46 +751,46 @@
                 <img src="/img/banner/hdsd.jpg" alt="HDSD">
             </section>
 
-            <!-- Độ Hiệu Quả -->
             <section class="bg-white">
-                <div class="text-center">
-                    <div
-                        class="relative shadow-xl overflow-hidden"
-                        style="width: 100%; max-width: 100%; margin: 0 auto">
-                        <!-- Google Drive iframe, hidden by default -->
-                        <iframe
-                            width="100%"
-                            height="200"
-                            src="https://www.youtube.com/embed/ZMjFeYP5ldY?autoplay=1&mute=1"
-                            title="YouTube video player"
-                            frameborder="0"
-                            allow="autoplay; encrypted-media"
-                            allowfullscreen
-                            class="w-full h-screen">
-                        </iframe>
+                <!-- Đổ Hiệu Quả -->
+                <section class="bg-white">
+                    <div class="text-center">
+                        <div class="relative shadow-xl overflow-hidden"
+                            style="width: 100%; max-width: 100%; margin: 0 auto">
+                            <!-- YouTube iframe với autoplay parameters -->
+                            <iframe
+                                width="100%"
+                                height="200"
+                                src="https://www.youtube.com/embed/ZMjFeYP5ldY?enablejsapi=1&autoplay=1&mute=1&controls=1&rel=0"
+                                title="YouTube video player"
+                                frameborder="0"
+                                allow="autoplay; encrypted-media"
+                                allowfullscreen
+                                class="w-full h-screen">
+                            </iframe>
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- NMSX -->
-            <section class="bg-white mt-5">
-                <div class="text-center">
-                    <div
-                        class="relative shadow-xl overflow-hidden"
-                        style="width: 100%; max-width: 100%; margin: 0 auto">
-                        <!-- Google Drive iframe, hidden by default -->
-                        <iframe
-                            width="100%"
-                            height="200"
-                            src="https://www.youtube.com/embed/03JqzP8xcb0?autoplay=1&mute=1"
-                            title="YouTube video player"
-                            frameborder="0"
-                            allow="autoplay; encrypted-media"
-                            allowfullscreen
-                            class="w-full h-screen">
-                        </iframe>
+                <!-- NMSX -->
+                <section class="bg-white mt-5">
+                    <div class="text-center">
+                        <div class="relative shadow-xl overflow-hidden"
+                            style="width: 100%; max-width: 100%; margin: 0 auto">
+                            <!-- YouTube iframe với autoplay parameters -->
+                            <iframe
+                                width="100%"
+                                height="200"
+                                src="https://www.youtube.com/embed/03JqzP8xcb0?enablejsapi=1&autoplay=1&mute=1&controls=1&rel=0"
+                                title="YouTube video player"
+                                frameborder="0"
+                                allow="autoplay; encrypted-media"
+                                allowfullscreen
+                                class="w-full h-screen">
+                            </iframe>
+                        </div>
                     </div>
-                </div>
+                </section>
             </section>
 
             <!-- Bảo hành -->
@@ -786,7 +857,7 @@
                         <!-- Nút Mua ngay -->
                         <a
                             href="#order"
-                            class="absolute bg-[#306B3E] hover:bg-green-700 text-white font-bold rounded-full px-5 py-2 text-base shadow-lg transition"
+                            class="heartbeat-combo-btn absolute bg-[#306B3E] hover:bg-green-700 text-white font-bold rounded-full px-5 py-2 text-base shadow-lg transition"
                             style="top: 86%; right: 0; transform: translate(-45%, -50%);">
                             MUA NGAY
                         </a>
@@ -802,7 +873,7 @@
                         <!-- Nút Mua ngay -->
                         <a
                             href="#order"
-                            class="absolute bg-[#306B3E] hover:bg-green-700 text-white font-bold rounded-full px-5 py-2 text-base shadow-lg transition"
+                            class="heartbeat-combo-btn absolute bg-[#306B3E] hover:bg-green-700 text-white font-bold rounded-full px-5 py-2 text-base shadow-lg transition"
                             style="top: 86%; right: 0; transform: translate(-45%, -50%);">
                             MUA NGAY
                         </a>
@@ -810,9 +881,131 @@
                 </div>
             </section>
 
+            <!-- Customer Rating Section -->
+            <section class="section-bg">
+                <div
+                    class="bg-white">
+                    <!-- Header -->
+                    <h2 class="text-lg font-bold px-5 pt-3 text-primary mb-2 text-start">
+                        Bình luận của khách hàng
+                    </h2>
+                    <div class="flex text-center px-6 mb-1 gap-10">
+
+                        <!-- Overall Rating -->
+                        <div class="flex items-end justify-center gap-2 mb-4">
+                            <span class="rating-number text-gray-800">4.9</span>
+                            <span class="rating-total text-gray-500">/5</span>
+                        </div>
+                        <div>
+                            <!-- Stars -->
+                            <div class="flex justify-center gap-1 mb-2">
+                                <i class="fas fa-star star-yellow text-2xl"></i>
+                                <i class="fas fa-star star-yellow text-2xl"></i>
+                                <i class="fas fa-star star-yellow text-2xl"></i>
+                                <i class="fas fa-star star-yellow text-2xl"></i>
+                                <i class="fas fa-star star-yellow text-2xl"></i>
+                            </div>
+
+                            <!-- Total Reviews -->
+                            <p class="text-gray-500 text-sm text-start">260 đánh
+                                giá</p>
+                        </div>
+
+                    </div>
+
+                    <!-- Rating Breakdown -->
+                    <div class="space-y-3 px-5">
+                        <!-- 5 Stars -->
+                        <div class="flex items-center gap-6">
+                            <div class="flex gap-0.5 w-16">
+                                <i class="fas fa-star star-yellow text-sm"></i>
+                                <i class="fas fa-star star-yellow text-sm"></i>
+                                <i class="fas fa-star star-yellow text-sm"></i>
+                                <i class="fas fa-star star-yellow text-sm"></i>
+                                <i class="fas fa-star star-yellow text-sm"></i>
+                            </div>
+                            <div class="flex-1 rating-bar">
+                                <div class="rating-fill animated-fill"
+                                    style="--target-width: 96%;"></div>
+                            </div>
+                            <span
+                                class="text-sm font-medium text-gray-600 w-8">250</span>
+                        </div>
+
+                        <!-- 4 Stars -->
+                        <div class="flex items-center gap-6">
+                            <div class="flex gap-0.5 w-16">
+                                <i class="fas fa-star star-yellow text-sm"></i>
+                                <i class="fas fa-star star-yellow text-sm"></i>
+                                <i class="fas fa-star star-yellow text-sm"></i>
+                                <i class="fas fa-star star-yellow text-sm"></i>
+                                <i class="fas fa-star star-gray text-sm"></i>
+                            </div>
+                            <div class="flex-1 rating-bar">
+                                <div class="rating-fill animated-fill"
+                                    style="--target-width: 4%; animation-delay: 0.7s;"></div>
+                            </div>
+                            <span
+                                class="text-sm font-medium text-gray-600 w-8">4</span>
+                        </div>
+
+                        <!-- 3 Stars -->
+                        <div class="flex items-center gap-6">
+                            <div class="flex gap-0.5 w-16">
+                                <i class="fas fa-star star-yellow text-sm"></i>
+                                <i class="fas fa-star star-yellow text-sm"></i>
+                                <i class="fas fa-star star-yellow text-sm"></i>
+                                <i class="fas fa-star star-gray text-sm"></i>
+                                <i class="fas fa-star star-gray text-sm"></i>
+                            </div>
+                            <div class="flex-1 rating-bar">
+                                <div class="rating-fill animated-fill"
+                                    style="--target-width: 3%; animation-delay: 0.9s;"></div>
+                            </div>
+                            <span
+                                class="text-sm font-medium text-gray-600 w-8">3</span>
+                        </div>
+
+                        <!-- 2 Stars -->
+                        <div class="flex items-center gap-6">
+                            <div class="flex gap-0.5 w-16">
+                                <i class="fas fa-star star-yellow text-sm"></i>
+                                <i class="fas fa-star star-yellow text-sm"></i>
+                                <i class="fas fa-star star-gray text-sm"></i>
+                                <i class="fas fa-star star-gray text-sm"></i>
+                                <i class="fas fa-star star-gray text-sm"></i>
+                            </div>
+                            <div class="flex-1 rating-bar">
+                                <div class="rating-fill animated-fill"
+                                    style="--target-width: 2%; animation-delay: 1.1s;"></div>
+                            </div>
+                            <span
+                                class="text-sm font-medium text-gray-600 w-8">2</span>
+                        </div>
+
+                        <!-- 1 Star -->
+                        <div class="flex items-center gap-6">
+                            <div class="flex gap-0.5 w-16">
+                                <i class="fas fa-star star-yellow text-sm"></i>
+                                <i class="fas fa-star star-gray text-sm"></i>
+                                <i class="fas fa-star star-gray text-sm"></i>
+                                <i class="fas fa-star star-gray text-sm"></i>
+                                <i class="fas fa-star star-gray text-sm"></i>
+                            </div>
+                            <div class="flex-1 rating-bar">
+                                <div class="rating-fill animated-fill"
+                                    style="--target-width: 1%; animation-delay: 1.3s;"></div>
+                            </div>
+                            <span
+                                class="text-sm font-medium text-gray-600 w-8">1</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- Review khách hàng -->
             <section class="bg-white py-6 px-4">
-                <h2 class="text-lg font-bold text-primary mb-2 text-center">
+                <h2 class="text-lg font-bold text-primary mb-2 text-start">
                     Khách hàng nói gì?
                 </h2>
                 <div>
@@ -1009,228 +1202,9 @@
             class="fixed bottom-6 right-6 w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center shadow-lg hover:bg-teal-600 transition">
             <i class="fas fa-arrow-up"></i>
         </button>
-        <!-- JS: Back to top & Form -->
-        <script>
-      // filepath: d:\Code_HTML\Freelancer\Balaskin\index2.html
-      // Countdown 15 phút, reset về 0 khi hết
-      function startCountdown(duration) {
-        let timer = duration,
-          days,
-          hours,
-          minutes,
-          seconds;
-        setInterval(function () {
-          days = Math.floor(timer / (60 * 60 * 24));
-          hours = Math.floor((timer % (60 * 60 * 24)) / 3600);
-          minutes = Math.floor((timer % 3600) / 60);
-          seconds = timer % 60;
 
-          document.getElementById("cd-day").textContent = days
-            .toString()
-            .padStart(2, "0");
-          document.getElementById("cd-hour").textContent = hours
-            .toString()
-            .padStart(2, "0");
-          document.getElementById("cd-min").textContent = minutes
-            .toString()
-            .padStart(2, "0");
-          document.getElementById("cd-sec").textContent = seconds
-            .toString()
-            .padStart(2, "0");
+        <script src="/assets/js/index.js"></script>
 
-          if (--timer < 0) {
-            timer = 0;
-            document.getElementById("cd-day").textContent = "00";
-            document.getElementById("cd-hour").textContent = "00";
-            document.getElementById("cd-min").textContent = "00";
-            document.getElementById("cd-sec").textContent = "00";
-          }
-        }, 1000);
-      }
-      // 15 phút = 900 giây
-      startCountdown(900);
-
-      // Back to top
-      const btnTop = document.getElementById("backToTop");
-      window.addEventListener("scroll", () => {
-        btnTop.style.display = window.scrollY > 200 ? "flex" : "none";
-      });
-      btnTop.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
-
-      // Xử lý submit form: gửi về Google Sheet và email (Formspree)
-      document.getElementById("leadForm").onsubmit = async function (e) {
-        e.preventDefault();
-        const form = e.target;
-        const msg = document.getElementById("formMsg");
-        msg.textContent = "Đang gửi...";
-
-        // Lấy dữ liệu form
-        const data = {
-          name: form.name.value,
-          phone: form.phone.value,
-          address: form.address.value,
-          product: form.product.value,
-        };
-
-        // Gửi về Google Sheet qua SheetDB
-        fetch("https://sheetdb.io/api/v1/fwymewo4i0e83", {
-          // Thay xxxxxx bằng API ID của bạn
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ data: data }),
-        })
-          .then((res) => (res.ok ? res.json() : Promise.reject()))
-          .then(() => {
-            msg.textContent =
-              "Gửi thành công! Chúng tôi sẽ liên hệ tư vấn sớm nhất.";
-            form.reset();
-          })
-          .catch(() => {
-            msg.textContent =
-              "Có lỗi xảy ra, vui lòng thử lại hoặc liên hệ hotline.";
-          });
-
-        // Gửi về email qua Formspree (nếu muốn)
-        fetch("https://formspree.io/f/mnnbbvqq", {
-          method: "POST",
-          body: new FormData(form),
-          headers: { Accept: "application/json" },
-        });
-      };
-
-      // Danh sách ảnh trước/sau
-      const carouselData = [
-        {
-          before: "/img/feeback/ngoc-truoc.jpg",
-          after: "/img/feeback/ngoc-sau.jpg",
-        },
-        {
-          before: "/img/feeback/ni-truoc.jpg",
-          after: "/img/feeback/ni-sau.jpg",
-        },
-        {
-          before: "/img/feeback/vo-truoc.jpg",
-          after: "/img/feeback/vo-sau.jpg",
-        },
-        {
-          before: "/img/feeback/ngoc-truoc.jpg",
-          after: "/img/feeback/ngoc-sau.jpg",
-        },
-        {
-          before: "/img/feeback/ni-truoc.jpg",
-          after: "/img/feeback/ni-sau.jpg",
-        },
-      ];
-
-      let currentIndex = 0;
-      let thumbStart = 0;
-      const thumbVisible = 4; // Số lượng thumbnail hiển thị cùng lúc
-
-      // Render thumbnails
-      const thumbsContainer = document.getElementById("carouselThumbs");
-      const thumbTemplate = document.getElementById("carouselThumbTemplate");
-
-      function renderThumbs() {
-        thumbsContainer.innerHTML = "";
-        for (
-          let i = thumbStart;
-          i < Math.min(thumbStart + thumbVisible, carouselData.length);
-          i++
-        ) {
-          const item = carouselData[i];
-          const node = thumbTemplate.content.cloneNode(true);
-          const imgs = node.querySelectorAll("img");
-          imgs[0].src = item.before;
-          imgs[1].src = item.after;
-          node.firstElementChild.classList.toggle("active", i === currentIndex);
-          node.firstElementChild.onclick = () => setCarousel(i);
-          thumbsContainer.appendChild(node);
-        }
-      }
-
-      // Hiển thị ảnh lớn
-      function setCarousel(idx) {
-        currentIndex = idx;
-        document.getElementById("mainImgBefore").src = carouselData[idx].before;
-        document.getElementById("mainImgAfter").src = carouselData[idx].after;
-        // Active thumbnail
-        renderThumbs();
-      }
-
-      // Điều hướng main carousel (có vòng lặp)
-      document.getElementById("carouselPrev").onclick = function () {
-        if (currentIndex > 0) {
-          setCarousel(currentIndex - 1);
-          if (currentIndex < thumbStart) {
-            thumbStart = currentIndex;
-            renderThumbs();
-          }
-        } else {
-          // Quay về ảnh cuối cùng
-          setCarousel(carouselData.length - 1);
-          thumbStart = Math.max(0, carouselData.length - thumbVisible);
-          renderThumbs();
-        }
-      };
-      document.getElementById("carouselNext").onclick = function () {
-        if (currentIndex < carouselData.length - 1) {
-          setCarousel(currentIndex + 1);
-          if (currentIndex > thumbStart + thumbVisible - 1) {
-            thumbStart = currentIndex - thumbVisible + 1;
-            renderThumbs();
-          }
-        } else {
-          // Quay về ảnh đầu tiên
-          setCarousel(0);
-          thumbStart = 0;
-          renderThumbs();
-        }
-      };
-
-      // Điều hướng thumbnail carousel (có vòng lặp)
-      document.getElementById("thumbPrev").onclick = function () {
-        if (thumbStart > 0) {
-          thumbStart--;
-          renderThumbs();
-        } else {
-          // Quay về cuối
-          thumbStart = Math.max(0, carouselData.length - thumbVisible);
-          renderThumbs();
-        }
-      };
-      document.getElementById("thumbNext").onclick = function () {
-        if (thumbStart < carouselData.length - thumbVisible) {
-          thumbStart++;
-          renderThumbs();
-        } else {
-          // Quay về đầu
-          thumbStart = 0;
-          renderThumbs();
-        }
-      };
-
-      // Click thumbnail
-      setCarousel(0);
-
-      // Phóng to khi click ảnh lớn
-      document.getElementById("carouselMain").onclick = function () {
-        document.getElementById("zoomImgBefore").src =
-          carouselData[currentIndex].before;
-        document.getElementById("zoomImgAfter").src =
-          carouselData[currentIndex].after;
-        document.getElementById("zoomModal").classList.remove("hidden");
-      };
-      document.getElementById("closeZoom").onclick = function () {
-        document.getElementById("zoomModal").classList.add("hidden");
-      };
-      // Đóng modal khi click nền
-      document.getElementById("zoomModal").onclick = function (e) {
-        if (e.target === this) this.classList.add("hidden");
-      };
-
-      // Khởi tạo thumbnails ban đầu
-      renderThumbs();
-    </script>
         <!-- FontAwesome CDN -->
         <script
             src="https://kit.fontawesome.com/2e5e4e7e7a.js"
