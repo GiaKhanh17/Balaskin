@@ -238,6 +238,13 @@
         .animated-fill {
             animation: fillBar 1s ease-out 0.5s forwards;
         }
+
+        @media (max-width: 475px) {
+    .video-container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
     </style>
     </head>
     <body class="mobile-only bg-light text-dark">
@@ -754,7 +761,7 @@
             <section class="bg-white">
                 <!-- Đổ Hiệu Quả -->
                 <section class="bg-white">
-                    <div class="text-center">
+                    <div class="text-center video-container">
                         <div class="relative shadow-xl overflow-hidden"
                             style="width: 100%; max-width: 100%; margin: 0 auto">
                             <!-- YouTube iframe với autoplay parameters -->
@@ -774,7 +781,7 @@
 
                 <!-- NMSX -->
                 <section class="bg-white mt-5">
-                    <div class="text-center">
+                    <div class="text-center video-container">
                         <div class="relative shadow-xl overflow-hidden"
                             style="width: 100%; max-width: 100%; margin: 0 auto">
                             <!-- YouTube iframe với autoplay parameters -->
@@ -886,7 +893,8 @@
                 <div
                     class="bg-white">
                     <!-- Header -->
-                    <h2 class="text-lg font-bold px-5 text-primary mb-2 text-start">
+                    <h2
+                        class="text-lg font-bold px-5 text-primary mb-2 text-start">
                         Bình luận của khách hàng
                     </h2>
                     <div class="flex text-center px-6 mb-1 gap-10">
