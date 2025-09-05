@@ -109,6 +109,20 @@ function initVideoAutoPlay() {
         }
     }
 
+    // Function để reset video về đầu
+    function resetVideo(iframe) {
+        try {
+            // Pause video trước
+            iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+            // Reset về thời điểm 0
+            setTimeout(() => {
+                iframe.contentWindow.postMessage('{"event":"command","func":"seekTo","args":[0, true]}', '*');
+            }, 100);
+        } catch (error) {
+            console.log('Không thể reset video:', error);
+        }
+    }
+
     // Fallback method khi postMessage không hoạt động
     function fallbackPlay(iframe) {
         // Tạo overlay button để simulate user click
@@ -168,13 +182,75 @@ function initVideoAutoPlay() {
             });
         }
     }, { once: true });
+
+    // Export functions để có thể sử dụng từ bên ngoài
+    window.videoControls = {
+        playVideo,
+        pauseVideo,
+        resetVideo
+    };
+}
+
+// Xử lý details toggle với video reset
+function initDetailsVideoHandler() {
+    const detailsElements = document.querySelectorAll('details');
+    
+    detailsElements.forEach(details => {
+        details.addEventListener('toggle', function() {
+            const videoIframes = this.querySelectorAll('iframe[src*="youtube.com"]');
+            
+            if (this.open) {
+                // Khi mở details - không cần làm gì, video sẽ tự play theo Intersection Observer
+                console.log('Details opened');
+            } else {
+                // Khi đóng details - reset tất cả video trong details này
+                videoIframes.forEach(iframe => {
+                    if (window.videoControls) {
+                        window.videoControls.resetVideo(iframe);
+                    }
+                });
+                console.log('Details closed - videos reset');
+            }
+        });
+
+        // Xử lý khi details được mở lại
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'open') {
+                    const details = mutation.target;
+                    if (details.open) {
+                        // Details vừa được mở - reset video về đầu
+                        const videoIframes = details.querySelectorAll('iframe[src*="youtube.com"]');
+                        videoIframes.forEach(iframe => {
+                            if (window.videoControls) {
+                                setTimeout(() => {
+                                    window.videoControls.resetVideo(iframe);
+                                }, 300); // Delay để đảm bảo details đã mở hoàn toàn
+                            }
+                        });
+                    }
+                }
+            });
+        });
+
+        observer.observe(details, {
+            attributes: true,
+            attributeFilter: ['open']
+        });
+    });
 }
 
 // Khởi chạy khi DOM đã load xong
-document.addEventListener('DOMContentLoaded', initVideoAutoPlay);
+document.addEventListener('DOMContentLoaded', function() {
+    initVideoAutoPlay();
+    initDetailsVideoHandler();
+});
 
 // Backup: Khởi chạy lại sau 1 giây để đảm bảo iframe đã load
-setTimeout(initVideoAutoPlay, 1000);
+setTimeout(function() {
+    initVideoAutoPlay();
+    initDetailsVideoHandler();
+}, 1000);
 
 
 
