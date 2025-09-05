@@ -173,8 +173,8 @@ function initVideoAutoPlay() {
 // Khởi chạy khi DOM đã load xong
 document.addEventListener('DOMContentLoaded', initVideoAutoPlay);
 
-// Backup: Khởi chạy lại sau 2 giây để đảm bảo iframe đã load
-setTimeout(initVideoAutoPlay, 2000);
+// Backup: Khởi chạy lại sau 1 giây để đảm bảo iframe đã load
+setTimeout(initVideoAutoPlay, 1000);
 
 
 

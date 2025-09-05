@@ -244,6 +244,26 @@
         padding-left: 10px;
         padding-right: 10px;
     }
+
+
+.aspect-video {
+    aspect-ratio: 16 / 9;
+}
+
+/* Hoặc nếu Tailwind không hỗ trợ aspect-video */
+.video-16-9 {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+}
+
+.video-16-9 iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
 }
     </style>
     </head>
@@ -272,43 +292,42 @@
             </section>
 
             <!-- Sản phẩm -->
-            <!-- Đổ Hiệu Quả -->
             <section class="bg-white">
-                <div class="text-center video-container">
-                    <div class="relative shadow-xl overflow-hidden"
-                        style="width: 100%; max-width: 100%; margin: 0 auto">
-                        <!-- YouTube iframe với autoplay parameters -->
+                <div class="text-center video-container px-0">
+                    <!-- Custom aspect ratio (ví dụ: 4:3 cho video dọc hơn) -->
+                    <div class="relative w-full overflow-hidden shadow-xl"
+                        style="aspect-ratio: 4/3;">
                         <iframe
                             width="100%"
-                            height="200"
+                            height="100%"
                             src="https://www.youtube.com/embed/PwdZEASFytk?enablejsapi=1&autoplay=1&mute=1&controls=1&rel=0"
                             title="YouTube video player"
                             frameborder="0"
                             allow="autoplay; encrypted-media"
                             allowfullscreen
-                            class="w-full h-screen">
+                            class="absolute inset-0 w-full h-full object-cover">
                         </iframe>
                     </div>
                 </div>
             </section>
 
             <!-- Các loại mụn -->
-            <section class="bg-[#306B3E] py-6 px-4">
-                <div class="text-center font-bold text-2xl text-white mb-4"
+            <section class="bg-[#306B3E] py-6 px-2">
+                <div class="text-center font-bold text-2xl text-white mb-2"
                     style="color: white">
                     Balaskin
                 </div>
                 <div
-                    class="text-center text-xl text-white font-bold mb-3 text-base">
+                    class="text-center text-xl text-white font-bold mb-1 text-base">
                     Các loại mụn Bala Acne sẽ xử lý hiệu quả
                 </div>
 
                 <div class="relative mx-auto"
-                    style="width: 320px; height: 550px">
+                    style="width: 320px; height: 500px">
                     <!-- Khung 1: Mụn trứng cá -->
                     <div
                         class="absolute z-10 flex flex-col items-center"
-                        style="top: 20px; left: 0">
+                        style="top: 10px; left: 0">
                         <div
                             class="rounded-2xl overflow-hidden border-4 border-white w-32 h-32 bg-white shadow-lg">
                             <img
@@ -323,7 +342,7 @@
                     <!-- Khung 2: Mụn viêm -->
                     <div
                         class="absolute z-10 flex flex-col items-center"
-                        style="top: 120px; right: 0">
+                        style="top: 70px; right: 0">
                         <div
                             class="rounded-2xl overflow-hidden border-4 border-white w-32 h-32 bg-white shadow-lg">
                             <img
@@ -338,7 +357,7 @@
                     <!-- Khung 3: Mụn mủ -->
                     <div
                         class="absolute z-10 flex flex-col items-center"
-                        style="top: 200px; left: 20">
+                        style="top: 175px; left: 30">
                         <div
                             class="rounded-2xl overflow-hidden border-4 border-white w-32 h-32 bg-white shadow-lg">
                             <img
@@ -755,26 +774,27 @@
 
             <!-- HDSD -->
             <section class="object-contain">
-                <img src="/img/banner/hdsd.jpg" alt="HDSD">
+                <img src="/img/banner/HDSD.png" alt="HDSD">
             </section>
 
             <!-- Video -->
             <section class="bg-white">
+
                 <!-- Đổ Hiệu Quả -->
                 <section class="bg-white">
-                    <div class="text-center video-container">
-                        <div class="relative shadow-xl overflow-hidden"
-                            style="width: 100%; max-width: 100%; margin: 0 auto">
-                            <!-- YouTube iframe với autoplay parameters -->
+                    <div class="text-center video-container px-0">
+                        <!-- Custom aspect ratio (ví dụ: 4:3 cho video dọc hơn) -->
+                        <div class="relative w-full overflow-hidden shadow-xl"
+                            style="aspect-ratio: 4/3;">
                             <iframe
                                 width="100%"
-                                height="200"
+                                height="100%"
                                 src="https://www.youtube.com/embed/ZMjFeYP5ldY?enablejsapi=1&autoplay=1&mute=1&controls=1&rel=0"
                                 title="YouTube video player"
                                 frameborder="0"
                                 allow="autoplay; encrypted-media"
                                 allowfullscreen
-                                class="w-full h-screen">
+                                class="absolute inset-0 w-full h-full object-cover">
                             </iframe>
                         </div>
                     </div>
@@ -782,19 +802,19 @@
 
                 <!-- NMSX -->
                 <section class="bg-white mt-5">
-                    <div class="text-center video-container">
-                        <div class="relative shadow-xl overflow-hidden"
-                            style="width: 100%; max-width: 100%; margin: 0 auto">
-                            <!-- YouTube iframe với autoplay parameters -->
+                    <div class="text-center video-container px-0">
+                        <!-- Custom aspect ratio (ví dụ: 4:3 cho video dọc hơn) -->
+                        <div class="relative w-full overflow-hidden shadow-xl"
+                            style="aspect-ratio: 4/3;">
                             <iframe
                                 width="100%"
-                                height="200"
+                                height="100%"
                                 src="https://www.youtube.com/embed/03JqzP8xcb0?enablejsapi=1&autoplay=1&mute=1&controls=1&rel=0"
                                 title="YouTube video player"
                                 frameborder="0"
                                 allow="autoplay; encrypted-media"
                                 allowfullscreen
-                                class="w-full h-screen">
+                                class="absolute inset-0 w-full h-full object-cover">
                             </iframe>
                         </div>
                     </div>
@@ -810,41 +830,8 @@
                     loading="eager" />
             </section>
 
-            <!-- FAQ -->
-            <section class="bg-white py-6 px-4">
-                <h2 class="text-lg font-bold text-primary mb-2 text-center">
-                    Câu hỏi thường gặp
-                </h2>
-                <div class="space-y-3">
-                    <details class="bg-primary bg-opacity-10 rounded-lg p-3">
-                        <summary class="font-bold text-primary cursor-pointer">
-                            Gel Bala có phù hợp với da nhạy cảm?
-                        </summary>
-                        <div class="text-xs text-gray-700 mt-1">
-                            Có, sản phẩm đã kiểm nghiệm an toàn cho da nhạy cảm.
-                        </div>
-                    </details>
-                    <details class="bg-primary bg-opacity-10 rounded-lg p-3">
-                        <summary class="font-bold text-primary cursor-pointer">
-                            Bao lâu thấy hiệu quả?
-                        </summary>
-                        <div class="text-xs text-gray-700 mt-1">
-                            Thông thường sau 7-14 ngày sử dụng đều đặn.
-                        </div>
-                    </details>
-                    <details class="bg-primary bg-opacity-10 rounded-lg p-3">
-                        <summary class="font-bold text-primary cursor-pointer">
-                            Có hoàn tiền nếu không hiệu quả?
-                        </summary>
-                        <div class="text-xs text-gray-700 mt-1">
-                            Có, hoàn tiền trong 15 ngày nếu không hài lòng.
-                        </div>
-                    </details>
-                </div>
-            </section>
-
             <!-- Giấy kiểm định -->
-            <section>
+            <section class="mt-3">
                 <img src="/img/banner/BÀI 7 copy.png" alt />
             </section>
 
@@ -887,6 +874,115 @@
                         </a>
                     </div>
                 </div>
+            </section>
+
+            <!-- Thời gian -->
+            <section class="bg-white shadow-lg pb-3 text-center">
+                <div class="font-bold text-xl mb-1 text-black">
+                    Ưu Đãi Chỉ Còn Hôm Nay
+                </div>
+                <div class="font-bold text-xl mb-2 text-[#e53935] uppercase">
+                    ĐẶT MUA NGAY !
+                </div>
+                <div class="text-gray-700 mb-3">Ưu đãi sẽ kết thúc sau</div>
+                <div id="countdown" class="flex justify-center gap-2 mb-2">
+                    <div class="flex flex-col items-center">
+                        <div
+                            class="bg-[#306B3E] text-white font-bold text-2xl rounded-md w-14 h-12 flex items-center justify-center"
+                            id="cd-day">
+                            00
+                        </div>
+                        <span class="text-xs text-gray-700 mt-1">Ngày</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div
+                            class="bg-[#306B3E] text-white font-bold text-2xl rounded-md w-14 h-12 flex items-center justify-center"
+                            id="cd-hour">
+                            00
+                        </div>
+                        <span class="text-xs text-gray-700 mt-1">Giờ</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div
+                            class="bg-[#306B3E] text-white font-bold text-2xl rounded-md w-14 h-12 flex items-center justify-center"
+                            id="cd-min">
+                            00
+                        </div>
+                        <span class="text-xs text-gray-700 mt-1">Phút</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div
+                            class="bg-[#306B3E] text-white font-bold text-2xl rounded-md w-14 h-12 flex items-center justify-center"
+                            id="cd-sec">
+                            00
+                        </div>
+                        <span class="text-xs text-gray-700 mt-1">Giây</span>
+                    </div>
+                </div>
+
+                <section id="order" class="py-6 px-2">
+                    <div
+                        class="max-w-md mx-auto bg-[#306B3E] rounded-2xl shadow-lg px-4 py-6">
+                        <h2
+                            class="text-lg font-bold text-white mb-4 text-center uppercase tracking-wide">
+                            Để lại thông tin đặt hàng tại đây!
+                        </h2>
+                        <form id="leadForm" class="space-y-3" autocomplete="on">
+                            <input
+                                type="text"
+                                name="name"
+                                required
+                                placeholder="Họ và tên"
+                                class="w-full rounded-lg px-3 py-2 text-sm bg-white placeholder-gray-400 focus:outline-none" />
+                            <input
+                                type="tel"
+                                name="phone"
+                                required
+                                placeholder="Số điện thoại"
+                                class="w-full rounded-lg px-3 py-2 text-sm bg-white placeholder-gray-400 focus:outline-none" />
+                            <input
+                                type="text"
+                                name="address"
+                                required
+                                placeholder="Địa chỉ"
+                                class="w-full rounded-lg px-3 py-2 text-sm bg-white placeholder-gray-400 focus:outline-none" />
+                            <div class="bg-white rounded-lg px-2 py-2">
+                                <label class="flex text-start gap-2 mb-1">
+                                    <input
+                                        type="radio"
+                                        name="product"
+                                        value="Gel giảm mụn"
+                                        required
+                                        class="mt-1 accent-[#306B3E]" />
+                                    <span class="text-sm text-gray-700">
+                                        Serum Mụn Bala Acne giá 158k nay Mua 1
+                                        Tặng 1 tiết kiêm 158k
+                                    </span>
+                                </label>
+                                <label class="flex text-start gap-2 mb-1">
+                                    <input
+                                        type="radio"
+                                        name="product"
+                                        value="Combo kèm SRM"
+                                        class="mt-1 accent-[#306B3E]" />
+                                    <span class="text-sm text-gray-700">
+                                        Combo Serum Mụn và Sữa rửa mặt giá 326k
+                                        giảm còn 199k tiết
+                                        kiệm 127k
+                                    </span>
+                                </label>
+                            </div>
+                            <button
+                                type="submit"
+                                class="w-full bg-gradient-to-r from-[#ff4d2d] to-[#ff3b3b] text-white py-3 rounded-lg font-bold shadow hover:opacity-90 transition text-lg tracking-wide">
+                                GỬI THÔNG TIN
+                            </button>
+                            <div
+                                id="formMsg"
+                                class="text-center text-xs mt-2 text-white"></div>
+                        </form>
+                    </div>
+                </section>
             </section>
 
             <!-- Customer Rating Section -->
@@ -1031,113 +1127,37 @@
                 </div>
             </section>
 
-            <!-- Thời gian -->
-            <section class="bg-white shadow-lg pb-3 text-center">
-                <div class="font-bold text-xl mb-1 text-black">
-                    Ưu Đãi Chỉ Còn Hôm Nay
+            <!-- FAQ -->
+            <section class="bg-white py-6 px-4">
+                <h2 class="text-lg font-bold text-primary mb-2 text-center">
+                    Câu hỏi thường gặp
+                </h2>
+                <div class="space-y-3">
+                    <details class="bg-primary bg-opacity-10 rounded-lg p-3">
+                        <summary class="font-bold text-primary cursor-pointer">
+                            Gel Bala có phù hợp với da nhạy cảm?
+                        </summary>
+                        <div class="text-xs text-gray-700 mt-1">
+                            Có, sản phẩm đã kiểm nghiệm an toàn cho da nhạy cảm.
+                        </div>
+                    </details>
+                    <details class="bg-primary bg-opacity-10 rounded-lg p-3">
+                        <summary class="font-bold text-primary cursor-pointer">
+                            Bao lâu thấy hiệu quả?
+                        </summary>
+                        <div class="text-xs text-gray-700 mt-1">
+                            Thông thường sau 7-14 ngày sử dụng đều đặn.
+                        </div>
+                    </details>
+                    <details class="bg-primary bg-opacity-10 rounded-lg p-3">
+                        <summary class="font-bold text-primary cursor-pointer">
+                            Có hoàn tiền nếu không hiệu quả?
+                        </summary>
+                        <div class="text-xs text-gray-700 mt-1">
+                            Có, hoàn tiền trong 15 ngày nếu không hài lòng.
+                        </div>
+                    </details>
                 </div>
-                <div class="font-bold text-xl mb-2 text-[#e53935] uppercase">
-                    ĐẶT MUA NGAY !
-                </div>
-                <div class="text-gray-700 mb-3">Ưu đãi sẽ kết thúc sau</div>
-                <div id="countdown" class="flex justify-center gap-2 mb-2">
-                    <div class="flex flex-col items-center">
-                        <div
-                            class="bg-[#306B3E] text-white font-bold text-2xl rounded-md w-14 h-12 flex items-center justify-center"
-                            id="cd-day">
-                            00
-                        </div>
-                        <span class="text-xs text-gray-700 mt-1">Ngày</span>
-                    </div>
-                    <div class="flex flex-col items-center">
-                        <div
-                            class="bg-[#306B3E] text-white font-bold text-2xl rounded-md w-14 h-12 flex items-center justify-center"
-                            id="cd-hour">
-                            00
-                        </div>
-                        <span class="text-xs text-gray-700 mt-1">Giờ</span>
-                    </div>
-                    <div class="flex flex-col items-center">
-                        <div
-                            class="bg-[#306B3E] text-white font-bold text-2xl rounded-md w-14 h-12 flex items-center justify-center"
-                            id="cd-min">
-                            00
-                        </div>
-                        <span class="text-xs text-gray-700 mt-1">Phút</span>
-                    </div>
-                    <div class="flex flex-col items-center">
-                        <div
-                            class="bg-[#306B3E] text-white font-bold text-2xl rounded-md w-14 h-12 flex items-center justify-center"
-                            id="cd-sec">
-                            00
-                        </div>
-                        <span class="text-xs text-gray-700 mt-1">Giây</span>
-                    </div>
-                </div>
-
-                <section id="order" class="py-6 px-2">
-                    <div
-                        class="max-w-md mx-auto bg-[#306B3E] rounded-2xl shadow-lg px-4 py-6">
-                        <h2
-                            class="text-lg font-bold text-white mb-4 text-center uppercase tracking-wide">
-                            Để lại thông tin đặt hàng tại đây!
-                        </h2>
-                        <form id="leadForm" class="space-y-3" autocomplete="on">
-                            <input
-                                type="text"
-                                name="name"
-                                required
-                                placeholder="Họ và tên"
-                                class="w-full rounded-lg px-3 py-2 text-sm bg-white placeholder-gray-400 focus:outline-none" />
-                            <input
-                                type="tel"
-                                name="phone"
-                                required
-                                placeholder="Số điện thoại"
-                                class="w-full rounded-lg px-3 py-2 text-sm bg-white placeholder-gray-400 focus:outline-none" />
-                            <input
-                                type="text"
-                                name="address"
-                                required
-                                placeholder="Địa chỉ"
-                                class="w-full rounded-lg px-3 py-2 text-sm bg-white placeholder-gray-400 focus:outline-none" />
-                            <div class="bg-white rounded-lg px-2 py-2">
-                                <label class="flex text-start gap-2 mb-1">
-                                    <input
-                                        type="radio"
-                                        name="product"
-                                        value="Gel giảm mụn"
-                                        required
-                                        class="mt-1 accent-[#306B3E]" />
-                                    <span class="text-sm text-gray-700">
-                                        Serum Mụn Bala Acne giá 158k nay Mua 1
-                                        Tặng 1 tiết kiêm 158k
-                                    </span>
-                                </label>
-                                <label class="flex text-start gap-2 mb-1">
-                                    <input
-                                        type="radio"
-                                        name="product"
-                                        value="Combo kèm SRM"
-                                        class="mt-1 accent-[#306B3E]" />
-                                    <span class="text-sm text-gray-700">
-                                        Combo Serum Mụn và Sữa rửa mặt giá 326k
-                                        giảm còn 199k tiết
-                                        kiệm 127k
-                                    </span>
-                                </label>
-                            </div>
-                            <button
-                                type="submit"
-                                class="w-full bg-gradient-to-r from-[#ff4d2d] to-[#ff3b3b] text-white py-3 rounded-lg font-bold shadow hover:opacity-90 transition text-lg tracking-wide">
-                                GỬI THÔNG TIN
-                            </button>
-                            <div
-                                id="formMsg"
-                                class="text-center text-xs mt-2 text-white"></div>
-                        </form>
-                    </div>
-                </section>
             </section>
 
             <footer class="bg-[#306B3E] text-white px-4 pt-4 pb-0 text-left">
