@@ -194,11 +194,11 @@ function initVideoAutoPlay() {
 // Xử lý details toggle với video reset
 function initDetailsVideoHandler() {
     const detailsElements = document.querySelectorAll('details');
-    
+
     detailsElements.forEach(details => {
-        details.addEventListener('toggle', function() {
+        details.addEventListener('toggle', function () {
             const videoIframes = this.querySelectorAll('iframe[src*="youtube.com"]');
-            
+
             if (this.open) {
                 // Khi mở details - không cần làm gì, video sẽ tự play theo Intersection Observer
                 console.log('Details opened');
@@ -214,8 +214,8 @@ function initDetailsVideoHandler() {
         });
 
         // Xử lý khi details được mở lại
-        const observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
+        const observer = new MutationObserver(function (mutations) {
+            mutations.forEach(function (mutation) {
                 if (mutation.type === 'attributes' && mutation.attributeName === 'open') {
                     const details = mutation.target;
                     if (details.open) {
@@ -241,13 +241,13 @@ function initDetailsVideoHandler() {
 }
 
 // Khởi chạy khi DOM đã load xong
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     initVideoAutoPlay();
     initDetailsVideoHandler();
 });
 
 // Backup: Khởi chạy lại sau 1 giây để đảm bảo iframe đã load
-setTimeout(function() {
+setTimeout(function () {
     initVideoAutoPlay();
     initDetailsVideoHandler();
 }, 1000);
@@ -300,11 +300,23 @@ window.addEventListener("scroll", () => {
 });
 btnTop.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
+function isValidPhone(phone) {
+    // Bắt đầu bằng số 0, gồm đúng 10 số
+    return /^0\d{9}$/.test(phone);
+}
+
 // Xử lý submit form: gửi về Google Sheet và email (Formspree)
 document.getElementById("leadForm").onsubmit = async function (e) {
     e.preventDefault();
     const form = e.target;
     const msg = document.getElementById("formMsg");
+
+    // Kiểm tra số điện thoại
+    if (!isValidPhone(form.phone.value.trim())) {
+        msg.textContent = "Vui lòng nhập số điện thoại hợp lệ (10 số, bắt đầu bằng 0).";
+        return;
+    }
+    
     msg.textContent = "Đang gửi...";
 
     // Lấy dữ liệu form
