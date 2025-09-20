@@ -300,12 +300,64 @@ window.addEventListener("scroll", () => {
 });
 btnTop.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
+// function isValidPhone(phone) {
+//     // Bắt đầu bằng số 0, gồm đúng 10 số
+//     return /^0\d{9}$/.test(phone);
+// }
+
+// // Xử lý submit form: gửi về Google Sheet và email (Formspree)
+// document.getElementById("leadForm").onsubmit = async function (e) {
+//     e.preventDefault();
+//     const form = e.target;
+//     const msg = document.getElementById("formMsg");
+
+//     // Kiểm tra số điện thoại
+//     if (!isValidPhone(form.phone.value.trim())) {
+//         msg.textContent = "Vui lòng nhập số điện thoại hợp lệ (10 số, bắt đầu bằng 0).";
+//         return;
+//     }
+
+//     msg.textContent = "Đang gửi...";
+
+//     // Lấy dữ liệu form
+//     const data = {
+//         name: form.name.value,
+//         phone: form.phone.value,
+//         address: form.address.value,
+//         product: form.product.value,
+//     };
+
+//     // Gửi về Google Sheet qua SheetDB
+//     fetch("https://sheetdb.io/api/v1/fwymewo4i0e83", {
+//         // Thay xxxxxx bằng API ID của bạn
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify({ data: data }),
+//     })
+//         .then((res) => (res.ok ? res.json() : Promise.reject()))
+//         .then(() => {
+//             msg.textContent =
+//                 "Gửi thành công! Chúng tôi sẽ liên hệ tư vấn sớm nhất.";
+//             form.reset();
+//         })
+//         .catch(() => {
+//             msg.textContent =
+//                 "Có lỗi xảy ra, vui lòng thử lại hoặc liên hệ hotline.";
+//         });
+
+//     // Gửi về email qua Formspree (nếu muốn)
+//     fetch("https://formspree.io/f/mnnbbvqq", {
+//         method: "POST",
+//         body: new FormData(form),
+//         headers: { Accept: "application/json" },
+//     });
+// };
+
 function isValidPhone(phone) {
     // Bắt đầu bằng số 0, gồm đúng 10 số
     return /^0\d{9}$/.test(phone);
 }
 
-// Xử lý submit form: gửi về Google Sheet và email (Formspree)
 document.getElementById("leadForm").onsubmit = async function (e) {
     e.preventDefault();
     const form = e.target;
@@ -316,42 +368,49 @@ document.getElementById("leadForm").onsubmit = async function (e) {
         msg.textContent = "Vui lòng nhập số điện thoại hợp lệ (10 số, bắt đầu bằng 0).";
         return;
     }
-    
-    msg.textContent = "Đang gửi...";
 
-    // Lấy dữ liệu form
+    // Lấy radio được chọn
+    const selectedProduct = form.querySelector('input[name="product"]:checked');
+    const productValue = selectedProduct.value; // số tiền
+    const productLabel = selectedProduct.getAttribute('data-label'); // mô tả
+
+    // Gửi về Google Sheet
     const data = {
         name: form.name.value,
         phone: form.phone.value,
         address: form.address.value,
-        product: form.product.value,
+        product: productLabel,
+        value: productValue
     };
 
-    // Gửi về Google Sheet qua SheetDB
     fetch("https://sheetdb.io/api/v1/fwymewo4i0e83", {
-        // Thay xxxxxx bằng API ID của bạn
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ data: data }),
+        body: JSON.stringify({ data: data })
     })
-        .then((res) => (res.ok ? res.json() : Promise.reject()))
+        .then((res) => res.ok ? res.json() : Promise.reject())
         .then(() => {
-            msg.textContent =
-                "Gửi thành công! Chúng tôi sẽ liên hệ tư vấn sớm nhất.";
+            msg.textContent = "Gửi thành công! Chúng tôi sẽ liên hệ tư vấn sớm nhất.";
             form.reset();
         })
         .catch(() => {
-            msg.textContent =
-                "Có lỗi xảy ra, vui lòng thử lại hoặc liên hệ hotline.";
+            msg.textContent = "Có lỗi xảy ra, vui lòng thử lại hoặc liên hệ hotline.";
         });
 
-    // Gửi về email qua Formspree (nếu muốn)
+    // Gửi về email qua Formspree
     fetch("https://formspree.io/f/mnnbbvqq", {
         method: "POST",
         body: new FormData(form),
         headers: { Accept: "application/json" },
     });
+
+    // Gửi sự kiện Purchase cho Meta Pixel
+    fbq('track', 'Purchase', {
+        value: Number(productValue),
+        currency: 'VND'
+    });
 };
+
 
 // Danh sách ảnh trước/sau
 const carouselData = [
