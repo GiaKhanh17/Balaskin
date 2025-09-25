@@ -338,9 +338,8 @@ document.getElementById("leadForm").onsubmit = async function (e) {
     })
         .then((res) => (res.ok ? res.json() : Promise.reject()))
         .then(() => {
-            msg.textContent =
-                "Gửi thành công! Chúng tôi sẽ liên hệ tư vấn sớm nhất.";
             form.reset();
+            document.getElementById("thankyouPopup").classList.remove("hidden");
         })
         .catch(() => {
             msg.textContent =
@@ -355,6 +354,10 @@ document.getElementById("leadForm").onsubmit = async function (e) {
     });
 };
 
+// Đóng popup
+document.getElementById("closeThankyou").onclick = function () {
+    document.getElementById("thankyouPopup").classList.add("hidden");
+};
 
 // Danh sách ảnh trước/sau
 const carouselData = [
